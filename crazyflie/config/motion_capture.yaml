@@ -1,9 +1,9 @@
 /motion_capture_tracking:
   ros__parameters:
     # one of "optitrack", "optitrack_closed_source", "vicon", "qualisys", "nokov", "vrpn", "motionanalysis"
-    type: "optitrack"
+    type: "qualisys"
     # Specify the hostname or IP of the computer running the motion capture software
-    hostname: "141.23.110.143"
+    hostname: "10.0.0.10"
 
     topics:
       frame_id: "mocap"
@@ -22,6 +22,48 @@
           p1: [-0.042,  0.042, 0.0  ]  # back left   (M3)
           p2: [-0.042, -0.042, 0.0  ]  # back right  (M2)
           p3: [ 0.042, -0.042, 0.0  ]  # front right (M1)
+      my_arrangement:
+        offset: [0.0, 0.0, 0.0]
+        points:
+          p0: [   0.0,    0.0, 0.022]  # top
+          p1: [ 0.042,  0.042, 0.0  ]  # back left   (M3)
+          p2: [ 0.042, -0.042, 0.0  ]  # front right (M1)
+      my_new_arrangement:
+        offset: [0.0, 0.0, 0.0]
+        points:
+          # p0: [   0.0,      0.0, 0.022]  # top
+          # p1: [ 63.085,  44.515, 10.632]  # front left
+          # p2: [ 63.085, -44.515, 10.632]  # front right
+          # p3: [-51.085,  44.515, 10.632]  # back left
+          # p0: [      0.0,      0.0,  0.012]  # top
+          # p1: [ 0.063085,  0.044515, 0.019]  # front left
+          # p2: [ 0.063085, -0.044515, 0.019]  # front right
+          # p3: [-0.051085,  0.044515, 0.019]  # back left
+          # p0: [      0.0,      0.0,  0.012]  # top
+          # p1: [ 0.060085,  0.044515, 0.019]  # front left
+          # p2: [ 0.060085, -0.044515, 0.019]  # front right
+          # p3: [-0.053085,  0.044515, 0.019]  # back left
+          p1: [-0.0523, 0.0454,  0.0200]
+          p2: [ 0.0594, 0.0441,  0.0192]
+          p3: [-0.0010, 0.0003,  0.0108]
+          p4: [ 0.0601, -0.0425, 0.0175]
+          # p4: [-51.085, -44.515, 7.632]  # back right
+          # p4: [-51.085, -44.515, 7.632]  # back right
+      arrangement_v2:
+        offset: [0.0, 0.0, 0.0]
+        points:
+          p0: [-0.03350,  0.04078, -0.01345]
+          p1: [ 0.04996, -0.04180, -0.01345]
+          p2: [ 0.04952,  0.04078, -0.01345]
+          p3: [ 0.01200,  0.00000,  0.00800]
+      arrangement_v3:
+        offset: [0.0, 0.0, 0.0]
+        points:
+          p0: [ 0.000, 0.000, 0.006]
+          p1: [ 0.017,-0.028,-0.008]
+          p2: [-0.009, 0.025,-0.014]
+          # p0: [ 0.022,-0.030,-0.010]
+          # p0: [-0.010, 0.027,-0.009]
       default_single_marker:
         offset: [0.0, -0.01, -0.04]
         points:

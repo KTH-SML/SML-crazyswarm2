@@ -2,9 +2,9 @@
 fileversion: 3
 
 robots:
-  cf231:
-    enabled: true
-    uri: radio://0/80/2M/E7E7E7E7E7
+  cf01:
+    enabled: false
+    uri: radio://0/80/2M/E7E7E7E701
     initial_position: [0.0, 0.0, 0.0]
     type: cf21  # see robot_types
     # firmware_params:
@@ -18,9 +18,10 @@ robots:
     #       vars: ["acc.x", "acc.y"]
     # reference_frame: "odom_cf231" # use a custom reference frame if no global coordinate system is available
 
-  cf5:
+  cf03:
+    # enabled: true
     enabled: false
-    uri: radio://0/80/2M/E7E7E7E705
+    uri: radio://0/80/2M/E7E7E7E703
     initial_position: [0.0, -0.5, 0.0]
     type: cf21  # see robot_types
     # firmware_params:
@@ -33,13 +34,76 @@ robots:
     #      vars: ["acc.x", "acc.y", "acc.z"]
     # reference_frame: "odom_cf5" 
 
+  cf02:
+    enabled: false
+    # enabled: true
+    uri: radio://0/80/2M/E7E7E7E702
+    initial_position: [0.0, 0.0, 0.1]
+    type: cf21
+
+  cf08:
+    enabled: false
+    # enabled: true
+    uri: radio://0/80/2M/E7E7E7E7E7
+    initial_position: [0.0, 0.0, 0.09]
+    type: cf21
+
+  cf09:
+    enabled: false
+    # enabled: true
+    uri: radio://0/80/2M/E7E7E7E7E7
+    initial_position: [0.0, 0.0, 0.09]
+    type: cf21
+
+  cf03:
+    # enabled: false
+    enabled: true
+    uri: radio://0/80/2M/E7E7E7E703
+    initial_position: [0.0, 0.0, 0.12]
+    type: cf21
+
+  cf05:
+    # enabled: false
+    enabled: true
+    uri: radio://0/80/2M/E7E7E7E705
+    initial_position: [-0.4, 0.0, 0.12]
+    type: cf21
+
+  cf06: # das hatte heute schon funktioniert
+    # enabled: false
+    enabled: true
+    uri: radio://0/80/2M/E7E7E7E706
+    initial_position: [0.4, 0.0, 0.12]
+    type: cf21
+
+  cf04:
+    enabled: false
+    # enabled: true
+    uri: radio://0/80/2M/E7E7E7E704
+    initial_position: [0.0, 0.0, 0.1]
+    # initial_position: [0.0, 0.0, 0.115]
+    # initial_position: [1.9, 1.3, 0.0]
+    type: cf21  # see robot_types
+    # firmware_params:
+    #   kalman:
+    #     pNAcc_xy: 1.0 # default 0.5
+    # firmware_logging:
+    #   enabled: true
+    #   custom_topics:
+    #     topic_name3: 
+    #       frequency: 1
+    #       vars: ["acc.x", "acc.y"]
+    # reference_frame: "odom_cf231" # use a custom reference frame if no global coordinate system is available
 # Definition of the various robot types
+
 robot_types:
   cf21:
     motion_capture:
+      # tracking: "vendor" # one of "vendor", "librigidbodytracker"
       tracking: "librigidbodytracker" # one of "vendor", "librigidbodytracker"
       # only if enabled; see motion_capture.yaml
-      marker: default_single_marker
+      # marker: default_single_marker
+      marker: arrangement_v3
       dynamics: default
     big_quad: false
     battery:
@@ -48,15 +112,17 @@ robot_types:
     # firmware_params:
     #   kalman:
     #     pNAcc_xy: 1.0 # default 0.5
-    #firmware_logging:
-    #   enabled: true
-    #   default_topics:
-    #   pose:
-    #     frequency: 1 # Hz
-    #   custom_topics:
-    #    topic_name3: 
-    #      frequency: 1
-    #      vars: ["acc.x", "acc.y", "acc.z"]
+    firmware_logging:
+      enabled: true
+      # default_topics:
+      #   pose:
+      #     frequency: 1 # Hz
+      custom_topics:
+       topic_name3: 
+         frequency: 100
+         # vars: ["stateEstimateZ.x", "stateEstimateZ.y", "stateEstimateZ.z", "acc.x", "acc.y", "acc.z"]
+         vars: ["ctrlMel.cmd_thrust", "ctrlMel.cmd_roll", "ctrlMel.cmd_pitch", "ctrlMel.cmd_yaw"]
+         # vars: ["acc.x", "acc.y", "acc.z"]
     # reference_frame: "odom" 
 
   cf21_mocap_deck:
@@ -92,7 +158,7 @@ all:
     default_topics:
      # remove to disable default topic
       pose:
-        frequency: 10 # Hz
+        frequency: 80 # Hz
       status:
         frequency: 1 # Hz
     #custom_topics:
@@ -108,7 +174,9 @@ all:
     commander:
       enHighLevel: 1
     stabilizer:
+      # estimator: 1 # 1: complementary, 2: kalman
       estimator: 2 # 1: complementary, 2: kalman
+      # controller: 1 # 1: PID, 2: mellinger
       controller: 2 # 1: PID, 2: mellinger
     # ring:
     #   effect: 16 # 6: double spinner, 7: solid color, 16: packetRate
@@ -123,7 +191,8 @@ all:
     #   resetEstimation: 1
   # reference frame for on-board state-estimate of all drones (use robot_types/type_name to set per type, or
   # robots/drone_name to set per drone)
-  reference_frame: "world"
+  # reference_frame: "world"
+  reference_frame: "mocap"
   broadcasts:
     num_repeats: 15 # number of times broadcast commands are repeated
     delay_between_repeats_ms: 1 # delay in milliseconds between individual repeats
