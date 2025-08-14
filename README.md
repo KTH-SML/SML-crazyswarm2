@@ -93,10 +93,16 @@ TODO:
 
 The library supports both position estimates from Qualisys directly, and own estimates using `librigidbodytracker`. 
 
-The latter is used currently, as it supports multiple crazyflies with the same marker setup. Each crazyflie has a unique number on one of the arms. 
-- Select the crazyflies that you are using in `crazyflies.yaml`.
+The default configuration is using `librigidbodytracker`. If you don't have special reasons, the simplest is to go along with `librigidbodytracker`.
+
+#### librigidbodytracker
+
+`librigidbodytracker` is used currently, as it supports multiple crazyflies with the same marker setup. Each crazyflie has a unique number on one of the arms. 
+- Select the crazyflies that you are using in `crazyflies.yaml` by setting `enabled: true`.
 - Select the starting positions for each crazyflie also in `crazyflies.yaml`.
 The crazyflie must start within a couple of centimeters from the specified starting location, otherwise, they will not be found.
+
+#### Qualisys
 
 To use Qualisys positioning directly, the following needs to be changed:
 1. In `crazyflies.yaml`, choose
@@ -106,10 +112,32 @@ To use Qualisys positioning directly, the following needs to be changed:
       motion_capture:
 	    tracking: "vendor" # instead of "librigidbodytracker"
    ```
-2. In Qualisys, go to settings. Under `Processing`, check `Calculate 6DOF`. Confirm with `Apply`.
+2. In Qualisys, go to settings. Under `Processing` > `Real-time Action`, check `Calculate 6DOF`. Confirm with `Apply`.
 3. _Optional_: Depending on your maker setup, you might need to add it to Qualisys
 4. Make sure that the name of the frame in Qualisys is the same as the drone name in `crazyflies.yaml`.
+5. As before, select the crazyflies that you are using in `crazyflies.yaml` by setting `enabled: true`.
 From there on, it works as before. You don't need to start the drone from a specified starting position any more, but each drone needs a unique marker arrangement.
+
+#### Overview of capabilities librigidbodytracker vs Qualisys
+
+Default: `librigidbodytracker`
+
+Pro:
+- Supports multiple crazyflies with the same marker setup
+- Already set up
+
+Contra:
+- Crazyflies need to start at specified starting locations
+
+Alternative: Use Qualisys directly
+
+Pro:
+- Crazyflies can start anywhere
+
+Contra:
+- Needs unique marker setups (limited space and payload of crazyflies)
+- Thus limited to one or few drones
+- (+ you will need to set new marker setups)
 
 ### Radio channels
 
