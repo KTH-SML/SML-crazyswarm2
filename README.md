@@ -55,16 +55,39 @@ Check step 7 in the [installation instructions](https://imrclab.github.io/crazys
 ## Usage
 
 For communicating with the Crazyflies, you can use
-- The Crazywarm2 library for autonomous flying
+- The Crazywarm2 library for autonomous flying (that's what you cloned here)
 - The CFClient with joystick (Attention: This requires some training. Also take care to not have a Crazyflie connected when choosing the appropriate keymapping - The drone might start flying before it should)
 - The Crazyflie Android/iOS app - as the joystick solution, this is hard to control and only good for debugging
+
+You need one Crazyradio 2.0 antenna with up-to-date firmware connected to your computer. Currently (Aug 2025), both radios are flashed with recent firmware.
 
 ### Crazyswarm library
 
 For general use, refer to the [official documentation](https://imrclab.github.io/crazyswarm2/index.html). 
 
+To test the setup, do the following:
+1. Start the Crazyswarm ROS2 node
+   ```
+   ros2 launch crazyflie launch.py backend:=cflib topics.poses.qos.mode:=sensor
+   ```
+2. Start the hello_world script
+   ```
+   ros2 run crazyflie_examples hello_all
+   ```
+   
 TODO: 
 - [ ] Have Bjarnes code as an example?
+
+### Debugging
+
+1. One (or multiple) crazyflie repeatedly flips directly after start
+	- Probably the drone is not well balanced: Try to place the battery and cable so that the battery is well-balanced. You can verify good balancing by holding the crazyflie on the two notches on the side.
+	- This is always the first thing you should check
+	- If you are unsure, you can verify that this is the issue by logging a custom topic through the `crazyflies.yaml` and see if the rpy-control input gets into saturation (Update: the custom topic `low_level_control` now is included by default in the  `crazyflies.yaml`)
+	- Be aware of additional payload: This requires higher thrust, therefore the thrusters end up sooner in saturation, and possibly crash.
+2. All crazyflies are crashing at the same time
+	- Log the positions of one (or multiple) crazyflies. If the positions experience high drift (in range of meters), restart the MoCap system. Make sure the 'Crazyflie' project is started. 
+3. ... (feel free to add...)
 
 ### Positioning
 
