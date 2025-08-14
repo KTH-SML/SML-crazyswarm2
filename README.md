@@ -78,7 +78,7 @@ To test the setup, do the following:
 TODO: 
 - [ ] Have Bjarnes code as an example?
 
-### Debugging
+## Debugging
 
 1. One (or multiple) crazyflie repeatedly flips directly after start
 	- Probably the drone is not well balanced: Try to place the battery and cable so that the battery is well-balanced. You can verify good balancing by holding the crazyflie on the two notches on the side.
@@ -89,7 +89,7 @@ TODO:
 	- Log the positions of one (or multiple) crazyflies. If the positions experience high drift (in range of meters), restart the MoCap system. Make sure the 'Crazyflie' project is started. 
 3. ... (feel free to add...)
 
-### Positioning
+## Positioning
 
 The library supports both position estimates from Qualisys directly, and own estimates using `librigidbodytracker`. 
 
@@ -139,7 +139,7 @@ Contra:
 - Thus limited to one or few drones
 - (+ you will need to set new marker setups)
 
-### Radio channels
+## Radio channels
 
 The standard address for each crazyflie is 0xE7E7E7E7E7, it can be changed in the [CFClient](https://www.bitcraze.io/documentation/repository/crazyflie-clients-python/master/userguides/userguide_client). Currently, they are set to
 
@@ -157,7 +157,9 @@ etc. up until
 
 (Note: "10" to 12" are written as decimal numbers in the radio channel, not in hexadecimal - we have 12 crazyflies, not x12)
 
-### Charging
+## Charging
 
 The Crazyflie can directly be plugged into a USB port for charging, or use the USB charging stations. 
 If we decide to buy additional batteries later, there are separate chargers for these available.
+
+You can see the carge status by the blinking blue light: The longer the blink, the higher the charge percentage.
